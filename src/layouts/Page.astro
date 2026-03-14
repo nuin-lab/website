@@ -56,6 +56,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 <style>
   :root {
+    --black: hsl(216, 24%, 8%);
+    --white: hsl(216, 16%, 92%);
+  }
+
+  :root {
     font-size: max(1rem, max(18px, 0.9375vw));
+  }
+
+  body {
+    background-color: var(--white);
+    color: var(--black);
   }
 </style>
