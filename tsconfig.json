@@ -1,0 +1,7 @@
+// Configuration: https://www.typescriptlang.org/tsconfig/
+
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"]
+}

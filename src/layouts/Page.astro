@@ -1,0 +1,61 @@
+---
+/*
+ * Copyright 2026 nuin
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// Styles
+import '../styles/reset.css';
+import '../styles/utils.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" type="image/png" href="/apple-icon.png">
+
+    <meta name="generator" content={Astro.generator}>
+
+    <title>{title}</title>
+    <meta name="title" content={title}>
+    <meta name="description" content={description}>
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL}>
+  </head>
+
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style>
+  :root {
+    font-size: max(1rem, max(18px, 0.9375vw));
+  }
+</style>
