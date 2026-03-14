@@ -64,6 +64,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   }
 
   :root {
+    --hdr-ht: 4rem;
+
     font-size: max(1rem, max(18px, 0.9375vw));
   }
 
@@ -77,5 +79,25 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
   :global([data-lang="en"]) {
     font-family: "Oxanium", sans-serif;
+  }
+
+  :global([data-anim="blink"]:hover) {
+    animation: anim-blink 0.3s;
+  }
+
+  @keyframes anim-blink {
+    0% {
+      opacity: 0.2;
+    }
+    25% {
+      opacity: 1;
+    }
+    35% {
+      opacity: 0.2;
+    }
+    50%,
+    100% {
+      opacity: 1;
+    }
   }
 </style>
