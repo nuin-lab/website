@@ -18,11 +18,12 @@
 // Elements
 import Anchor from '../elements/Anchor.astro';
 
+// Constants
+import { navItems } from '../constants/links.constants';
+
 const path = Astro.url.pathname;
 
 const LogoElem = path === '/' ? 'h1' : 'div';
-
-const navItems = ['Blog', 'Sample', 'Kitchen', 'About'];
 ---
 
 <header>
