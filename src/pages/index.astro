@@ -20,15 +20,21 @@ import Page from '../layouts/Page.astro';
 
 // Components
 import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 ---
 
 <Page title="Home" description="Template page">
   <Header />
   <main></main>
+  <Footer />
 </Page>
 
 <style>
   main {
     padding: 1em;
+
+    min-height: 200svh;
+
+    border-bottom: 1px solid;
   }
 </style>
