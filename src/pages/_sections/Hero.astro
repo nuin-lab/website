@@ -17,7 +17,7 @@
 ---
 
 <section id="hero">
-  <a class="focus-only" href="#header">おすすめ記事をスキップ</a>
+  <a href="#header" data-visible="focus">おすすめ記事をスキップ</a>
 
   <hgroup>
     <h2 data-lang="en">Featured</h2>
@@ -32,7 +32,7 @@
     height: var(--vh-remain);
   }
 
-  .focus-only {
+  [data-visible="focus"] {
     margin: 0.5em;
   }
 

@@ -30,11 +30,11 @@ const LogoElem = path === '/' ? 'h1' : 'div';
   <LogoElem>
     <a href="/" data-anim="blink">
       <span aria-hidden="true" data-lang="en">nuin/ab</span>
-      <span class="sr-only">nuin lab</span>
+      <span data-visible="sr">nuin lab</span>
     </a>
   </LogoElem>
 
-  <a class="focus-only" href="#main">ナビゲーションをスキップ</a>
+  <a href="#main" data-visible="focus">ナビゲーションをスキップ</a>
 
   <nav>
     <ul data-lang="en">
@@ -70,7 +70,7 @@ const LogoElem = path === '/' ? 'h1' : 'div';
     }
   }
 
-  .focus-only {
+  [data-visible="focus"] {
     position: absolute;
   }
 

@@ -79,7 +79,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     font-weight: 500;
   }
 
-  :global(.focus-only) {
+  :global([data-visible="focus"]) {
     padding: 0.5em 1em;
 
     background-color: var(--white);

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-.focus-only {
+[data-visible="focus"] {
   display: inline-block;
 
   font-size: 0.75rem;
@@ -35,7 +35,7 @@
   }
 }
 
-.sr-only {
+[data-visible="sr"] {
   position: absolute;
 
   margin: -1px;
