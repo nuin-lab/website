@@ -66,6 +66,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
   :root {
     --hdr-ht: 4rem;
+    --vh-remain: calc(100dvh - var(--hdr-ht));
 
     font-size: max(1rem, max(18px, 0.9375vw));
   }
