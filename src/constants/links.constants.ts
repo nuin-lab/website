@@ -16,8 +16,4 @@
 
 export const navItems = ['Blog', 'Sample', 'Kitchen', 'About'];
 
-export const externalLinks = [
-  { url: 'https://nui-n.com/', lable: 'Portfolio' },
-  { url: 'https://github.com/nui-n', lable: 'GitHub' },
-  { url: 'https://gitlab.com/n.9', lable: 'GitLab' },
-];
+export const externalLinks = [{ url: 'https://github.com/nuin-lab', lable: 'GitHub' }];
