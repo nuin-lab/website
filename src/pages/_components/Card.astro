@@ -52,7 +52,7 @@ const { title, date, slug, img } = Astro.props;
 <article>
   <div class="meta">
     <h3><a href={slug}>{title}</a></h3>
-    <time datetime={date} data-lang="en">{date.replaceAll('-', '.')}</time>
+    <time datetime={date} class="expanded" data-lang="en">{date.replaceAll('-', '.')}</time>
   </div>
   <picture><img src={img} alt={`${title}のサムネイル`}></picture>
 </article>
@@ -98,8 +98,6 @@ const { title, date, slug, img } = Astro.props;
 
     font-size: 0.75em;
     font-weight: 700;
-
-    letter-spacing: 0.04em;
   }
 
   :global(.indicator) {
