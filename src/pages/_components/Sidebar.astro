@@ -14,39 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-// Layouts
-import Page from '../layouts/Page.astro';
-
-// Components
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-
-import Sidebar from './_components/Sidebar.astro';
-import LatestArticle from './_components/LatestArticle.astro';
-
-// Sections
-import Hero from './_sections/Hero.astro';
 ---
 
-<Page title="Home" description="Template page">
-  <Hero />
-
-  <Header />
-
-  <main id="main">
-    <Sidebar />
-    <LatestArticle />
-  </main>
-
-  <Footer />
-</Page>
+<div id="sidebar"></div>
 
 <style>
-  main {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-
-    border-bottom: 1px solid;
+  #sidebar {
+    border-right: 1px solid;
   }
 </style>
