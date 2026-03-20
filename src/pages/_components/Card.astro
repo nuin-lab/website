@@ -25,6 +25,30 @@ interface Props {
 const { title, date, slug, img } = Astro.props;
 ---
 
+<script>
+  function isWithinOneWeek(date: string): boolean {
+    const msPerDay = 24 * 60 * 60 * 1000;
+
+    return Math.abs((new Date(date).getTime() - Date.now()) / msPerDay) <= 7;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    for (const meta of document.querySelectorAll('.meta')) {
+      if (!isWithinOneWeek((meta.children[1] as HTMLTimeElement).dateTime)) {
+        return;
+      }
+
+      // Add 'New' indicator
+      const indicator = document.createElement('div');
+      indicator.classList = 'indicator';
+      indicator.dataset.lang = 'en';
+      indicator.textContent = 'New';
+
+      meta.insertAdjacentElement('beforeend', indicator);
+    }
+  });
+</script>
+
 <article>
   <div class="meta">
     <h3><a href={slug}>{title}</a></h3>
@@ -76,6 +100,22 @@ const { title, date, slug, img } = Astro.props;
     font-weight: 700;
 
     letter-spacing: 0.04em;
+  }
+
+  :global(.indicator) {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    padding: 0.25rem 1em;
+
+    background-color: var(--black);
+    color: var(--white);
+
+    font-size: 0.75em;
+    font-weight: 700;
+
+    pointer-events: none;
   }
 
   picture {
