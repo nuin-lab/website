@@ -54,7 +54,7 @@ export const articles: Frontmatter[] = [
     ))}
 
     <li>
-      <a href="blog/2" class="btn-more">
+      <a href="blog/2" class="btn-more" data-anim="blink">
         <span>View more</span>
         <span>記事一覧</span>
       </a>
@@ -113,6 +113,11 @@ export const articles: Frontmatter[] = [
     &:not(:nth-last-of-type(-n + 3)) {
       border-bottom: 1px solid;
     }
+
+    &:has(.btn-more) {
+      background-color: var(--black);
+      color: var(--white);
+    }
   }
 
   .btn-more {
@@ -124,8 +129,5 @@ export const articles: Frontmatter[] = [
     gap: 0.5rem;
 
     height: 100%;
-
-    background-color: var(--black);
-    color: var(--white);
   }
 </style>
