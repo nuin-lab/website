@@ -92,23 +92,25 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     font-family: "Oxanium", sans-serif;
   }
 
-  :global([data-anim="blink"]:hover) {
-    animation: anim-blink 0.3s;
-  }
+  @media (hover: hover) and (pointer: fine) {
+    :global([data-anim="blink"]:hover) {
+      animation: anim-blink 0.3s;
+    }
 
-  @keyframes anim-blink {
-    0% {
-      opacity: 0.2;
-    }
-    25% {
-      opacity: 1;
-    }
-    35% {
-      opacity: 0.2;
-    }
-    50%,
-    100% {
-      opacity: 1;
+    @keyframes anim-blink {
+      0% {
+        opacity: 0.2;
+      }
+      25% {
+        opacity: 1;
+      }
+      35% {
+        opacity: 0.2;
+      }
+      50%,
+      100% {
+        opacity: 1;
+      }
     }
   }
 </style>
