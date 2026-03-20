@@ -130,5 +130,19 @@ const { title, date, slug, img } = Astro.props;
     aspect-ratio: 1;
 
     object-fit: contain;
+
+    pointer-events: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    article:has(a:is(:hover, :focus)) img {
+      scale: 1;
+    }
+
+    img {
+      scale: 0.975;
+
+      transition: scale 0.2s ease-in-out;
+    }
   }
 </style>
