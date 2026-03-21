@@ -14,6 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+//  Types
+import type { Frontmatter } from '../../types/article.types';
+
+export const articles: Frontmatter[] = [
+  { title: 'タイトル', date: '2026-03-20', slug: '/', img: 'https://picsum.photos/id/870/512/512.webp', tag: '' },
+  { title: 'タイトル', date: '2026-03-19', slug: '/', img: 'https://picsum.photos/id/870/512/512.webp', tag: '' },
+  { title: 'タイトル', date: '2026-03-16', slug: '/', img: 'https://picsum.photos/id/870/512/512.webp', tag: '' },
+  { title: 'タイトル', date: '2026-03-13', slug: '/', img: 'https://picsum.photos/id/870/512/512.webp', tag: '' },
+  { title: 'タイトル', date: '2026-03-12', slug: '/', img: 'https://picsum.photos/id/870/512/512.webp', tag: '' },
+];
 ---
 
 <section id="hero">
@@ -23,6 +34,16 @@
     <h2 class="expanded" data-lang="en">Featured</h2>
     <p class="expanded">おすすめ記事</p>
   </hgroup>
+
+  <ul>
+    {articles.map(({title, slug, img, ..._}) => (
+      <li>
+        <a href="slug">
+          <img src={img} alt={`${title}のサムネイル`} />
+        </a>
+      </li>
+    ))}
+  </ul>
 </section>
 
 <style>
@@ -33,6 +54,8 @@
   }
 
   [data-visible="focus"] {
+    position: absolute;
+
     margin: 0.5em;
   }
 
@@ -40,5 +63,25 @@
     position: absolute;
     top: 50%;
     translate: 0 -50%;
+
+    z-index: -1;
+  }
+
+  ul {
+    display: flex;
+
+    padding: 8rem 6rem;
+    padding-left: 16rem;
+    gap: 6rem;
+
+    height: 100%;
+
+    line-height: 0;
+
+    overflow: auto;
+  }
+
+  img {
+    height: 100%;
   }
 </style>
