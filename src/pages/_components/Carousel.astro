@@ -114,9 +114,9 @@ const { articles } = Astro.props;
   ul {
     display: flex;
 
-    padding: 8rem 6rem;
-    padding-left: 16rem;
-    gap: 6rem;
+    padding: var(--pd-i) var(--gap);
+    padding-left: var(--pd-l);
+    gap: var(--gap);
 
     height: 100%;
 
@@ -133,6 +133,24 @@ const { articles } = Astro.props;
       a {
         pointer-events: none;
       }
+    }
+
+    @media screen and (width < 700px) {
+      --pd-i: 6rem;
+      --pd-l: 2rem;
+      --gap: 1.5rem;
+    }
+
+    @media screen and (width >= 700px) {
+      --pd-i: 6rem;
+      --pd-l: 10rem;
+      --gap: 2rem;
+    }
+
+    @media screen and (width >= 1100px) {
+      --pd-i: 8rem;
+      --pd-l: 14rem;
+      --gap: 6rem;
     }
   }
 

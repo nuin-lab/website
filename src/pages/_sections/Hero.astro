@@ -42,7 +42,13 @@ export const articles = [
   #hero {
     position: relative;
 
-    height: var(--vh-remain);
+    @media screen and (width < 700px) {
+      height: calc(var(--vh-remain) / 3 * 2);
+    }
+
+    @media screen and (width >= 1100px) {
+      height: var(--vh-remain);
+    }
   }
 
   [data-visible="focus"] {
@@ -57,5 +63,9 @@ export const articles = [
     translate: 0 -50%;
 
     z-index: -1;
+
+    @media screen and (width < 1100px) {
+      margin-left: 0.25rem;
+    }
   }
 </style>

@@ -51,8 +51,14 @@ const tags: string[] = ['HTML', 'CSS', 'JavaScript/TypeScript'];
 
       height: var(--hdr-ht);
 
-      background-color: var(--black);
-      color: var(--white);
+      @media screen and (width < 1100px) {
+        border-bottom: 1px solid;
+      }
+
+      @media screen and (width >= 1100px) {
+        background-color: var(--black);
+        color: var(--white);
+      }
     }
   }
 
