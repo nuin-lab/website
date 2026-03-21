@@ -38,7 +38,7 @@ export const articles: Frontmatter[] = [
   <ul>
     {articles.map(({title, slug, img, ..._}) => (
       <li>
-        <a href="slug">
+        <a href={slug}>
           <img src={img} alt={`${title}のサムネイル`} />
         </a>
       </li>
