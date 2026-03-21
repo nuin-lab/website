@@ -19,6 +19,8 @@
 
   font-size: 0.75rem;
 
+  user-select: none;
+
   &:not(:focus) {
     margin: -1px;
     padding: 0;
