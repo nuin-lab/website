@@ -35,7 +35,7 @@ export async function getAvailableArticles(): Promise<Array<CollectionEntry<'art
     })
     .sort((a, b) => {
       if (!a.data.publishedAt || !b.data.publishedAt) {
-        return 0;
+        return -1;
       }
 
       return b.data.publishedAt.getTime() - a.data.publishedAt.getTime();
