@@ -25,21 +25,21 @@ import type { CollectionEntry } from 'astro:content';
  * _ただし、開発環境においては無効（公開日を過ぎていない）状態の投稿も含めて取得する。_
  */
 export async function getAvailableArticles(): Promise<Array<CollectionEntry<'articles'>>> {
-  const availableArticles = (await getCollection('articles'))
-    .filter(({ data }) => {
+  const availableArticles = (
+    await getCollection('articles', ({ data }) => {
       if (import.meta.env.DEV) {
         return true;
       }
 
       return data.publishedAt !== undefined;
     })
-    .sort((a, b) => {
-      if (!a.data.publishedAt || !b.data.publishedAt) {
-        return -1;
-      }
+  ).sort((a, b) => {
+    if (!a.data.publishedAt || !b.data.publishedAt) {
+      return -1;
+    }
 
-      return b.data.publishedAt.getTime() - a.data.publishedAt.getTime();
-    });
+    return b.data.publishedAt.getTime() - a.data.publishedAt.getTime();
+  });
 
   return availableArticles;
 }
