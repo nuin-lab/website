@@ -1,4 +1,3 @@
----
 /*
  * Copyright 2026 nuin
  *
@@ -15,22 +14,17 @@
  * limitations under the License.
  */
 
-// Layouts
-import Page from '../layouts/Page.astro';
-
-// Sections
-import ArticleList from './_sections/ArticleList.astro';
----
-
-<!-- biome-ignore format: 視認性のための意図的な改行 -->
-<Page title='Home' description='Template page'>
-  <main>
-    <ArticleList />
-  </main>
-</Page>
-
-<style>
-  main {
-    padding: 1em;
+/**
+ * 日付を「YYYY-MM-DD」の形にして出力
+ */
+export function format(date: Date | undefined): string | undefined {
+  if (!date) {
+    return undefined;
   }
-</style>
+
+  return [
+    date.getFullYear(),
+    (date.getMonth() + 1).toString().padStart(2, '0'),
+    date.getDate().toString().padStart(2, '0'),
+  ].join('-');
+}

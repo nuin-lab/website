@@ -1,4 +1,3 @@
----
 /*
  * Copyright 2026 nuin
  *
@@ -15,22 +14,15 @@
  * limitations under the License.
  */
 
-// Layouts
-import Page from '../layouts/Page.astro';
+import { reference } from 'astro:content';
+import { z } from 'astro/zod';
 
-// Sections
-import ArticleList from './_sections/ArticleList.astro';
----
-
-<!-- biome-ignore format: 視認性のための意図的な改行 -->
-<Page title='Home' description='Template page'>
-  <main>
-    <ArticleList />
-  </main>
-</Page>
-
-<style>
-  main {
-    padding: 1em;
-  }
-</style>
+export const ArticleFrontmatterSchema = z.object({
+  title: z.string().nonempty(),
+  description: z.string().nonempty(),
+  // Transform string to Date object
+  publishedAt: z.coerce.date().optional(),
+  revisedAt: z.coerce.date().optional(), // 名称はmicroCMSから - https://help.microcms.io/ja/knowledge/how-to-setup-date
+  img: z.url().nonempty(),
+  tags: z.array(reference('tags')).nonempty(),
+});

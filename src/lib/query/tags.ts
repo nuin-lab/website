@@ -1,4 +1,3 @@
----
 /*
  * Copyright 2026 nuin
  *
@@ -15,22 +14,14 @@
  * limitations under the License.
  */
 
-// Layouts
-import Page from '../layouts/Page.astro';
+import { getCollection } from 'astro:content';
 
-// Sections
-import ArticleList from './_sections/ArticleList.astro';
----
+// Types
+import type { CollectionEntry } from 'astro:content';
 
-<!-- biome-ignore format: 視認性のための意図的な改行 -->
-<Page title='Home' description='Template page'>
-  <main>
-    <ArticleList />
-  </main>
-</Page>
-
-<style>
-  main {
-    padding: 1em;
-  }
-</style>
+/**
+ * すべてのタグを取得
+ */
+export function getAllTags(): Promise<Array<CollectionEntry<'tags'>>> {
+  return getCollection('tags');
+}
