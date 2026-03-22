@@ -14,13 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import { getAvailableArticles } from '../../lib/query/articles';
+
+const articles = await getAvailableArticles();
 ---
 
-<p>
-  Welcome to Astro! Wondering what to do next? Check out the Astro documentation at
-  <a href="https://docs.astro.build" target="_blank">https://docs.astro.build</a>
-</p>
-<p>
-  Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories,
-  and start fresh.
-</p>
+<ul>
+  {articles.map((article) => (
+    <li><a href={`articles/${article.id}`}>{article.data.title}</a></li>
+  ))}
+</ul>
