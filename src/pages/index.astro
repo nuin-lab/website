@@ -15,6 +15,12 @@
  * limitations under the License.
  */
 
+import { getAvailableArticles } from '../lib/query/articles';
+import { format } from '../utils/date';
+
+// Types
+import type { CardData } from '../types/article.types';
+
 // Layouts
 import Page from '../layouts/Page.astro';
 
@@ -27,6 +33,23 @@ import Sidebar from './_components/Sidebar.astro';
 // Sections
 import Hero from './_sections/Hero.astro';
 import LatestArticle from './_sections/LatestArticle.astro';
+
+const availableArticles = await getAvailableArticles();
+
+const latestArticles: CardData[] = availableArticles.flatMap(({ id, data }) => {
+  const publishedAt = format(data.publishedAt);
+
+  if (!publishedAt) {
+    return [];
+  }
+
+  return {
+    title: data.title,
+    date: publishedAt,
+    slug: id,
+    img: data.img,
+  };
+});
 ---
 
 <Page title="Home" description="Template page">
@@ -36,7 +59,7 @@ import LatestArticle from './_sections/LatestArticle.astro';
 
   <main id="main">
     <Sidebar />
-    <LatestArticle />
+    <LatestArticle articles={latestArticles} />
   </main>
 
   <Footer />
