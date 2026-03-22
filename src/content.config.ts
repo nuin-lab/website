@@ -17,6 +17,8 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 
+import { isUuid } from './utils/uuid';
+
 // Schemas
 import { ArticleFrontmatterSchema } from './lib/schemas/article.schema';
 
@@ -25,6 +27,25 @@ const articles = defineCollection({
   loader: glob({
     base: './src/content/articles',
     pattern: '**/*.md',
+    generateId: ({ base, entry, data }) => {
+      const fileName = entry.replace('.md', '');
+      const publishedAt = ArticleFrontmatterSchema.parse(data).publishedAt;
+
+      if (publishedAt) {
+        if (isUuid(fileName)) {
+          throw Error(`ファイル名がUUIDになっています [${base + entry}]`);
+        }
+
+        // console.log(publishedAt.getTime().toString(36));
+        // console.log(Math.floor(publishedAt.getTime() / 1000).toString(36));
+        // console.log(Number(fileName.replaceAll('-', '')).toString(36));
+        // console.log(Number(fileName.split('-').reverse().join('')).toString(36));
+
+        return Number(fileName.replaceAll('-', '')).toString(36);
+      } else {
+        return fileName;
+      }
+    },
   }),
   // Type-check frontmatter using a schema
   schema: () => ArticleFrontmatterSchema,
