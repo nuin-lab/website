@@ -14,15 +14,10 @@
  * limitations under the License.
  */
 
-import { reference } from 'astro:content';
 import { z } from 'astro/zod';
 
-export const ArticleFrontmatterSchema = z.object({
-  title: z.string().nonempty(),
+export const TagSchema = z.object({
+  id: z.string().nonempty(),
+  name: z.string().nonempty(),
   description: z.string().nonempty(),
-  // Transform string to Date object
-  publishedAt: z.coerce.date().optional(),
-  revisedAt: z.coerce.date().optional(), // 名称はmicroCMSから - https://help.microcms.io/ja/knowledge/how-to-setup-date
-  img: z.url().nonempty(),
-  tags: z.array(reference('tags')).nonempty(),
 });

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { render } from 'astro:content';
+import { getEntries, render } from 'astro:content';
 
 import { getAvailableArticles } from '../../../lib/query/articles';
 import { format } from '../../../utils/date';
@@ -33,13 +33,15 @@ import Page from '../../../layouts/Page.astro';
 export async function getStaticPaths() {
   const articles = await getAvailableArticles();
 
-  return articles.map((article) => ({
-    params: { id: article.id },
-    props: { article },
-  }));
+  return Promise.all(
+    articles.map(async (article) => ({
+      params: { id: article.id },
+      props: { article, tags: await getEntries(article.data.tags) },
+    })),
+  );
 }
 
-const { article } = Astro.props;
+const { article, tags } = Astro.props;
 
 const { Content } = await render(article);
 const date = format(article.data.publishedAt);
@@ -48,5 +50,13 @@ const date = format(article.data.publishedAt);
 <Page title={article.data.title} description={article.data.description}>
   <h1>{article.data.title}</h1>
   <p>Published on: <time datetime={date}>{date?.replaceAll('-', '.') || 'Unpublished'}</time></p>
+
+  <ul>
+    {tags.map(({data})=>(
+      <>
+        <li>{data.name}</li>
+      </>
+    ))}
+  </ul>
   <Content />
 </Page>

@@ -15,12 +15,18 @@
  */
 
 import { defineCollection } from 'astro:content';
-import { glob } from 'astro/loaders';
+import { file, glob } from 'astro/loaders';
 
 import { isUuid } from './utils/uuid';
 
 // Schemas
 import { ArticleFrontmatterSchema } from './lib/schemas/article.schema';
+import { TagSchema } from './lib/schemas/tag.schema';
+
+const tags = defineCollection({
+  loader: file('./src/content/data/tags.yaml'),
+  schema: () => TagSchema,
+});
 
 const articles = defineCollection({
   // Load Markdown files in the `src/content/articles/` directory.
@@ -51,4 +57,4 @@ const articles = defineCollection({
   schema: () => ArticleFrontmatterSchema,
 });
 
-export const collections = { articles };
+export const collections = { articles, tags };
