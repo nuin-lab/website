@@ -15,17 +15,33 @@
  * limitations under the License.
  */
 
+import { getAvailableArticles } from '../../lib/query/articles';
+import { format } from '../../utils/date';
+
 //  Types
 import type { CardData } from '../../types/article.types';
 
 // Components
 import Card from '../_components/Card.astro';
 
-interface Props {
-  articles: CardData[];
-}
+const latestArticles: CardData[] = (await getAvailableArticles()).flatMap(({ id, data }) => {
+  const publishedAt = format(data.publishedAt);
 
-const { articles } = Astro.props;
+  if (!publishedAt) {
+    if (import.meta.env.DEV) {
+      return [];
+    }
+
+    throw new Error('An unexpected error has occurred');
+  }
+
+  return {
+    title: data.title,
+    date: publishedAt,
+    slug: id,
+    img: data.img,
+  };
+});
 ---
 
 <section id="latest">
@@ -39,7 +55,7 @@ const { articles } = Astro.props;
   </div>
 
   <ul>
-    {articles.map((data) => (
+    {latestArticles.map((data) => (
       <li>
         <Card {...data} />
       </li>

@@ -15,12 +15,6 @@
  * limitations under the License.
  */
 
-import { getAvailableArticles } from '../lib/query/articles';
-import { format } from '../utils/date';
-
-// Types
-import type { CardData, CarouselItemData } from '../types/article.types';
-
 // Layouts
 import Page from '../layouts/Page.astro';
 
@@ -33,49 +27,16 @@ import Sidebar from './_components/Sidebar.astro';
 // Sections
 import Hero from './_sections/Hero.astro';
 import LatestArticle from './_sections/LatestArticle.astro';
-
-const availableArticles = await getAvailableArticles();
-
-const featuredArticles: CarouselItemData[] = availableArticles.flatMap(({ id, data }) => {
-  if (!data.featured) {
-    return [];
-  }
-
-  return {
-    title: data.title,
-    slug: id,
-    img: data.img,
-  };
-});
-
-const latestArticles: CardData[] = availableArticles.flatMap(({ id, data }) => {
-  const publishedAt = format(data.publishedAt);
-
-  if (!publishedAt) {
-    if (import.meta.env.DEV) {
-      return [];
-    }
-
-    throw new Error('An unexpected error has occurred');
-  }
-
-  return {
-    title: data.title,
-    date: publishedAt,
-    slug: id,
-    img: data.img,
-  };
-});
 ---
 
 <Page title="Home" description="Template page">
-  <Hero carouselItems={featuredArticles} />
+  <Hero />
 
   <Header />
 
   <main id="main">
     <Sidebar />
-    <LatestArticle articles={latestArticles} />
+    <LatestArticle />
   </main>
 
   <Footer />
