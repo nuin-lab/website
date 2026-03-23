@@ -40,7 +40,11 @@ const latestArticles: CardData[] = availableArticles.flatMap(({ id, data }) => {
   const publishedAt = format(data.publishedAt);
 
   if (!publishedAt) {
-    return [];
+    if (import.meta.env.DEV) {
+      return [];
+    }
+
+    throw new Error('An unexpected error has occurred');
   }
 
   return {
