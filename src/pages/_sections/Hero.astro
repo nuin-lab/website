@@ -15,16 +15,17 @@
  * limitations under the License.
  */
 
+//  Types
+import type { CarouselItemData } from '../../types/article.types';
+
 //  Components
 import Carousel from '../_components/Carousel.astro';
 
-export const articles = [
-  { title: 'タイトル', slug: '/', img: 'https://picsum.photos/id/870/512/512.webp' },
-  { title: 'タイトル', slug: '/', img: 'https://picsum.photos/id/870/512/512.webp' },
-  { title: 'タイトル', slug: '/', img: 'https://picsum.photos/id/870/512/512.webp' },
-  { title: 'タイトル', slug: '/', img: 'https://picsum.photos/id/870/512/512.webp' },
-  { title: 'タイトル', slug: '/', img: 'https://picsum.photos/id/870/512/512.webp' },
-];
+interface Props {
+  carouselItems: CarouselItemData[];
+}
+
+const { carouselItems } = Astro.props;
 ---
 
 <section id="hero">
@@ -35,7 +36,7 @@ export const articles = [
     <p class="expanded">おすすめ記事</p>
   </hgroup>
 
-  <Carousel {articles} />
+  <Carousel articles={carouselItems} />
 </section>
 
 <style>

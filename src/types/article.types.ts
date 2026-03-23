@@ -14,6 +14,12 @@
  * limitations under the License.
  */
 
+export type CarouselItemData = {
+  title: string;
+  slug: string;
+  img: string;
+};
+
 export type CardData = {
   title: string;
   date: string;

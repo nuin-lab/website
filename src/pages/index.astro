@@ -19,7 +19,7 @@ import { getAvailableArticles } from '../lib/query/articles';
 import { format } from '../utils/date';
 
 // Types
-import type { CardData } from '../types/article.types';
+import type { CardData, CarouselItemData } from '../types/article.types';
 
 // Layouts
 import Page from '../layouts/Page.astro';
@@ -35,6 +35,18 @@ import Hero from './_sections/Hero.astro';
 import LatestArticle from './_sections/LatestArticle.astro';
 
 const availableArticles = await getAvailableArticles();
+
+const featuredArticles: CarouselItemData[] = availableArticles.flatMap(({ id, data }) => {
+  if (!data.featured) {
+    return [];
+  }
+
+  return {
+    title: data.title,
+    slug: id,
+    img: data.img,
+  };
+});
 
 const latestArticles: CardData[] = availableArticles.flatMap(({ id, data }) => {
   const publishedAt = format(data.publishedAt);
@@ -57,7 +69,7 @@ const latestArticles: CardData[] = availableArticles.flatMap(({ id, data }) => {
 ---
 
 <Page title="Home" description="Template page">
-  <Hero />
+  <Hero carouselItems={featuredArticles} />
 
   <Header />
 
