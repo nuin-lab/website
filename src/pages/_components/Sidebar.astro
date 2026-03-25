@@ -30,9 +30,9 @@ import Anchor from '../../elements/Anchor.astro';
   </div>
 
   <ul data-lang="en">
-    {(await getAllTags()).map(({ id, data: { name } }) => (
+    {(await getAllTags()).map(({ id, data: { name, description } }) => (
       <li>
-        <Anchor href={`blog/tags/${id}`}>{name}</Anchor>
+        <Anchor href={`blog/tags/${id}`} title={description}>{name}</Anchor>
       </li>
     ))}
   </ul>
