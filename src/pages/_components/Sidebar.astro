@@ -15,10 +15,11 @@
  * limitations under the License.
  */
 
+// Query
+import { getAllTags } from '../../lib/query/tags.query';
+
 // Elements
 import Anchor from '../../elements/Anchor.astro';
-
-const tags: string[] = ['HTML', 'CSS', 'JavaScript/TypeScript'];
 ---
 
 <div id="sidebar">
@@ -29,9 +30,9 @@ const tags: string[] = ['HTML', 'CSS', 'JavaScript/TypeScript'];
   </div>
 
   <ul data-lang="en">
-    {tags.map((tag) => (
+    {(await getAllTags()).map(({ id, data: { name } }) => (
       <li>
-        <Anchor href={`blog/tags/${tag.toLowerCase().replaceAll('/', '-')}`}>{tag}</Anchor>
+        <Anchor href={`blog/tags/${id}`}>{name}</Anchor>
       </li>
     ))}
   </ul>
