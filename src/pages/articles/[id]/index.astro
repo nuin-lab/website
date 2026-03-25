@@ -17,8 +17,10 @@
 
 import { getEntries, render } from 'astro:content';
 
-import { getAvailableArticles } from '../../../lib/query/articles';
 import { format } from '../../../utils/date';
+
+// Query
+import { getAvailableArticles } from '../../../lib/query/articles.query';
 
 // Layouts
 import Page from '../../../layouts/Page.astro';
