@@ -31,7 +31,7 @@ const tags: string[] = ['HTML', 'CSS', 'JavaScript/TypeScript'];
   <ul data-lang="en">
     {tags.map((tag) => (
       <li>
-        <Anchor href={`tags/${tag.toLowerCase().replaceAll('/', '-')}`}>{tag}</Anchor>
+        <Anchor href={`blog/tags/${tag.toLowerCase().replaceAll('/', '-')}`}>{tag}</Anchor>
       </li>
     ))}
   </ul>

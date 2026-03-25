@@ -49,7 +49,7 @@ const { title, date, slug, img } = Astro.props;
 
 <article>
   <div class="meta">
-    <h3><a href={`articles/${slug}`}>{title}</a></h3>
+    <h3><a href={`blog/articles/${slug}`}>{title}</a></h3>
     <time datetime={date} class="expanded" data-lang="en">{date.replaceAll('-', '.')}</time>
   </div>
   <picture><img src={img} alt={`${title}のサムネイル`}></picture>
