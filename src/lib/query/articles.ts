@@ -16,8 +16,11 @@
 
 import { getCollection } from 'astro:content';
 
+import { format } from '../../utils/date';
+
 // Types
 import type { CollectionEntry } from 'astro:content';
+import type { CardData, CarouselItemData } from '../../types/article.types';
 
 /**
  * 有効なすべての投稿を取得
@@ -42,4 +45,64 @@ export async function getAvailableArticles(): Promise<Array<CollectionEntry<'art
   });
 
   return availableArticles;
+}
+
+/**
+ * おすすめの投稿をすべて取得
+ */
+export async function getFeaturedArticles(): Promise<Array<CarouselItemData>> {
+  const featuredArticles = (await getAvailableArticles())
+    .flatMap(({ id, data }) => {
+      if (!data.featured) {
+        return [];
+      }
+
+      return {
+        title: data.title,
+        slug: id,
+        img: data.img,
+        sort: data.featured,
+      };
+    })
+    .sort((a, b) => b.sort - a.sort);
+
+  const len = featuredArticles.length;
+
+  if (!import.meta.env.DEV && len < 3) {
+    throw new Error('おすすめ記事が少なすぎます');
+  }
+
+  return featuredArticles.slice(0, Math.min(len, 5));
+}
+
+/**
+ * 最新の投稿を取得
+ */
+export async function getLatestArticles(): Promise<Array<CardData>> {
+  const latestArticles = (await getAvailableArticles()).flatMap(({ id, data }) => {
+    const publishedAt = format(data.publishedAt);
+
+    if (!publishedAt) {
+      if (import.meta.env.DEV) {
+        return [];
+      }
+
+      throw new Error('An unexpected error has occurred');
+    }
+
+    return {
+      title: data.title,
+      date: publishedAt,
+      slug: id,
+      img: data.img,
+    };
+  });
+
+  const len = latestArticles.length;
+
+  if (!import.meta.env.DEV && len < 5) {
+    throw new Error('記事が少なすぎます');
+  }
+
+  return latestArticles.slice(0, Math.min(len, 11));
 }

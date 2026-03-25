@@ -15,27 +15,10 @@
  * limitations under the License.
  */
 
-import { getAvailableArticles } from '../../lib/query/articles';
-
-//  Types
-import type { CarouselItemData } from '../../types/article.types';
+import { getFeaturedArticles } from '../../lib/query/articles';
 
 //  Components
 import Carousel from '../_components/Carousel.astro';
-
-const availableArticles = await getAvailableArticles();
-
-const featuredArticles: CarouselItemData[] = availableArticles.flatMap(({ id, data }) => {
-  if (!data.featured) {
-    return [];
-  }
-
-  return {
-    title: data.title,
-    slug: id,
-    img: data.img,
-  };
-});
 ---
 
 <section id="hero">
@@ -46,7 +29,7 @@ const featuredArticles: CarouselItemData[] = availableArticles.flatMap(({ id, da
     <p class="expanded">おすすめ記事</p>
   </hgroup>
 
-  <Carousel articles={featuredArticles} />
+  <Carousel articles={await getFeaturedArticles()} />
 </section>
 
 <style>
