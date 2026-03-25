@@ -78,7 +78,7 @@ export async function getFeaturedArticles(): Promise<Array<CarouselItemData>> {
 /**
  * 最新の投稿を取得
  */
-export async function getLatestArticles(): Promise<Array<CardData>> {
+export async function getLatestArticles(): Promise<{ articleCards: Array<CardData>; hasMore: boolean }> {
   const latestArticles = (await getAvailableArticles()).flatMap(({ id, data }) => {
     const publishedAt = format(data.publishedAt);
 
@@ -104,5 +104,8 @@ export async function getLatestArticles(): Promise<Array<CardData>> {
     throw new Error('記事が少なすぎます');
   }
 
-  return latestArticles.slice(0, Math.min(len, 11));
+  return {
+    articleCards: latestArticles.slice(0, Math.min(len, 11)),
+    hasMore: len > 11,
+  };
 }
