@@ -35,7 +35,7 @@ import { externalLinks, navItems } from '../constants/links.constants';
 
   <div>
     <ul>
-      {externalLinks.map(({url, lable}) => (
+      {externalLinks.map(({ url, lable }) => (
         <li>
           <Anchor href={url} target="_blank" ref="noreferrer">{lable}</Anchor>
         </li>

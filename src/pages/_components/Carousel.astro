@@ -99,7 +99,7 @@ const { articles } = Astro.props;
 </script>
 
 <ul id="carousel" data-dragging="false">
-  {articles.map(({title, slug, img}) => (
+  {articles.map(({ title, slug, img }) => (
     <li>
       <a href={`blog/articles/${slug}`}>
         <span data-visible="sr">{title}</span>

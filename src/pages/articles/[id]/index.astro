@@ -54,7 +54,7 @@ const date = format(article.data.publishedAt);
   <p>Published on: <time datetime={date}>{date?.replaceAll('-', '.') || 'Unpublished'}</time></p>
 
   <ul>
-    {tags.map(({data})=>(
+    {tags.map(({ data })=>(
       <>
         <li>{data.name}</li>
       </>
