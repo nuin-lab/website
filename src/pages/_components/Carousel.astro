@@ -34,7 +34,7 @@ const { articles } = Astro.props;
     function startInertiaScroll() {
       const friction = 0.1; // 摩擦係数
 
-      function inertiaScroll() {
+      const inertiaScroll = () => {
         carousel?.scrollBy({
           left: -velocity,
         });
@@ -44,7 +44,7 @@ const { articles } = Astro.props;
         if (Math.abs(velocity) > 0.1) {
           requestAnimationFrame(inertiaScroll);
         }
-      }
+      };
 
       inertiaScroll();
     }
@@ -55,13 +55,13 @@ const { articles } = Astro.props;
       }
 
       event.preventDefault();
+      velocity = 0; // 速度を0に（慣性スクロール中なら停止）
 
       let isDragging = false;
 
       let lastX = event.pageX;
       const startX = lastX;
       const scrollStartX = carousel?.scrollLeft;
-      velocity = 0; // 慣性スクロール中なら停止
 
       function dragMove(event: PointerEvent) {
         isDragging = true;
