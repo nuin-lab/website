@@ -100,7 +100,7 @@ export async function getLatestArticles(): Promise<{ articleCards: Array<CardDat
 
   const len = latestArticles.length;
 
-  if (!import.meta.env.DEV && len < 5) {
+  if (!import.meta.env.DEV && len < 4) {
     throw new Error('記事が少なすぎます');
   }
 
