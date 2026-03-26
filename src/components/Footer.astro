@@ -25,9 +25,9 @@ import { externalLinks, navItems } from '../constants/links.constants';
 <footer data-lang="en">
   <nav>
     <ul>
-      {navItems.map((item) => (
+      {navItems.map(({ label }) => (
         <li>
-          <Anchor href={`/${item.toLowerCase()}`}>{item}</Anchor>
+          <Anchor href={`/${label.toLowerCase()}`}>{label}</Anchor>
         </li>
       ))}
     </ul>
