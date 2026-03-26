@@ -38,9 +38,9 @@ const LogoElem = path === '/' ? 'h1' : 'div';
 
   <nav>
     <ul data-lang="en">
-      {navItems.map((item) => (
-        <li>
-          <Anchor href={`/${item.toLowerCase()}`}>{item}</Anchor>
+      {navItems.map(({ label, visible }) => (
+        <li data-visible={`${visible}`}>
+          <Anchor href={`/${label.toLowerCase()}`}>{label}</Anchor>
         </li>
       ))}
     </ul>
