@@ -22,6 +22,11 @@ import { format } from '../../utils/date';
 import type { CollectionEntry } from 'astro:content';
 import type { CardData, CarouselItemData } from '../../types/article.types';
 
+const MIN_ARTICLE = 4;
+const MIN_FEATURED_ARTICLE = 3;
+const MAX_FEATURED_ARTICLE = 5;
+const MAX_LATEST_ARTICLE = 12;
+
 /**
  * 有効なすべての投稿を取得
  *
@@ -68,11 +73,13 @@ export async function getFeaturedArticles(): Promise<Array<CarouselItemData>> {
 
   const len = featuredArticles.length;
 
-  if (!import.meta.env.DEV && len < 3) {
+  if (!import.meta.env.DEV && len < MIN_FEATURED_ARTICLE) {
     throw new Error('おすすめ記事が少なすぎます');
   }
 
-  return featuredArticles.slice(0, Math.min(len, 5));
+  const max = MAX_FEATURED_ARTICLE - 1;
+
+  return featuredArticles.slice(0, Math.min(len, max));
 }
 
 /**
@@ -100,12 +107,14 @@ export async function getLatestArticles(): Promise<{ articleCards: Array<CardDat
 
   const len = latestArticles.length;
 
-  if (!import.meta.env.DEV && len < 4) {
+  if (!import.meta.env.DEV && len < MIN_ARTICLE) {
     throw new Error('記事が少なすぎます');
   }
 
+  const max = MAX_LATEST_ARTICLE - 1;
+
   return {
-    articleCards: latestArticles.slice(0, Math.min(len, 11)),
-    hasMore: len > 11,
+    articleCards: latestArticles.slice(0, Math.min(len, max)),
+    hasMore: len > max,
   };
 }
