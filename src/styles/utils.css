@@ -14,7 +14,42 @@
  * limitations under the License.
  */
 
-.sr-only {
+@media screen and (480px <= width < 880px) {
+  [data-visible~="pc"]:not([data-visible~="tb"]) {
+    display: none;
+  }
+}
+
+@media screen and (width < 480px) {
+  [data-visible~="tb"] {
+    display: none;
+  }
+}
+
+[data-visible="focus"] {
+  display: inline-block;
+
+  font-size: 0.75rem;
+
+  user-select: none;
+
+  &:not(:focus) {
+    margin: -1px;
+    padding: 0;
+
+    height: 1px;
+    width: 1px;
+
+    border: 0;
+
+    clip: rect(0, 0, 0, 0);
+
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
+
+[data-visible="sr"] {
   position: absolute;
 
   margin: -1px;

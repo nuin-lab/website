@@ -41,6 +41,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
     <meta name="generator" content={Astro.generator}>
 
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link
+      rel="stylesheet"
+      href="https://fonts.bunny.net/css?family=ibm-plex-sans-jp:500,700|oxanium:500,600,700&display=swap"
+    >
+
     <title>{title}</title>
     <meta name="title" content={title}>
     <meta name="description" content={description}>
@@ -56,6 +62,57 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 <style>
   :root {
+    --black: hsl(216, 24%, 8%);
+    --black-50: color-mix(in srgb-linear, var(--black), transparent);
+    --white: hsl(216, 16%, 92%);
+  }
+
+  :root {
+    --hdr-ht: 4rem;
+    --vh-remain: calc(100dvh - var(--hdr-ht));
+
+    --duration: 0.2s;
+
     font-size: max(1rem, max(18px, 0.9375vw));
+  }
+
+  body {
+    background-color: var(--white);
+    color: var(--black);
+
+    font-family: "IBM Plex Sans JP", sans-serif;
+    font-weight: 500;
+  }
+
+  :global([data-visible="focus"]) {
+    padding: 0.5em 1em;
+
+    background-color: inherit;
+  }
+
+  :global([data-lang="en"]) {
+    font-family: "Oxanium", sans-serif;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    :global([data-anim="blink"]:hover) {
+      animation: anim-blink 0.3s;
+    }
+
+    @keyframes anim-blink {
+      0% {
+        opacity: 0.2;
+      }
+      25% {
+        opacity: 1;
+      }
+      35% {
+        opacity: 0.2;
+      }
+      50%,
+      100% {
+        opacity: 1;
+      }
+    }
   }
 </style>

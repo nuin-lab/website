@@ -15,14 +15,11 @@
  * limitations under the License.
  */
 
-// Query
-import { getAvailableArticles } from '../../lib/query/articles.query';
+interface Props {
+  when: boolean;
+}
 
-const articles = await getAvailableArticles();
+const { when } = Astro.props;
 ---
 
-<ul>
-  {articles.map((article) => (
-    <li><a href={`articles/${article.id}`}>{article.data.title}</a></li>
-  ))}
-</ul>
+{when ? <slot/> : <slot name="fallback" />}

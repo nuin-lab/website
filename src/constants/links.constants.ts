@@ -1,4 +1,3 @@
----
 /*
  * Copyright 2026 nuin
  *
@@ -15,14 +14,11 @@
  * limitations under the License.
  */
 
-// Query
-import { getAvailableArticles } from '../../lib/query/articles.query';
+export const navItems = [
+  { label: 'Blog', visible: ['all'] },
+  { label: 'Sample', visible: ['pc', 'tb'] },
+  { label: 'Kitchen', visible: ['pc', 'tb'] },
+  { label: 'About', visible: ['all'] },
+];
 
-const articles = await getAvailableArticles();
----
-
-<ul>
-  {articles.map((article) => (
-    <li><a href={`articles/${article.id}`}>{article.data.title}</a></li>
-  ))}
-</ul>
+export const externalLinks = [{ url: 'https://github.com/nuin-lab', lable: 'GitHub' }];

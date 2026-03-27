@@ -1,0 +1,188 @@
+---
+/*
+ * Copyright 2026 nuin
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// Types
+import type { CarouselItemData } from '../../types/article.types';
+
+interface Props {
+  articles: CarouselItemData[];
+}
+
+const { articles } = Astro.props;
+---
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const carousel = document.getElementById('carousel');
+
+    let velocity = 0;
+
+    function startInertiaScroll() {
+      const friction = 0.1; // 摩擦係数
+
+      const inertiaScroll = () => {
+        carousel?.scrollBy({
+          left: -velocity,
+        });
+
+        velocity *= 1 - friction;
+
+        if (Math.abs(velocity) > 0.1) {
+          requestAnimationFrame(inertiaScroll);
+        }
+      };
+
+      inertiaScroll();
+    }
+
+    carousel?.addEventListener('pointerdown', (event) => {
+      if (event.button !== 0) {
+        return;
+      }
+
+      event.preventDefault();
+      velocity = 0; // 速度を0に（慣性スクロール中なら停止）
+
+      let isDragging = false;
+
+      let lastX = event.pageX;
+      const startX = lastX;
+      const scrollStartX = carousel?.scrollLeft;
+
+      function dragMove(event: PointerEvent) {
+        isDragging = true;
+        carousel?.setAttribute('data-dragging', `${isDragging}`);
+
+        const deltaX = event.pageX - startX;
+        carousel?.scrollTo({
+          left: scrollStartX - deltaX,
+        });
+
+        velocity = event.pageX - lastX;
+        lastX = event.pageX;
+      }
+
+      function dragEnd() {
+        if (isDragging) {
+          isDragging = false;
+          carousel?.setAttribute('data-dragging', `${isDragging}`);
+
+          startInertiaScroll();
+        }
+
+        document.removeEventListener('pointermove', dragMove);
+        setTimeout(() => {
+          document.removeEventListener('pointerup', dragEnd);
+          carousel?.removeEventListener('pointerleave', dragEnd);
+        }, 200);
+      }
+
+      document.addEventListener('pointermove', dragMove);
+      document.addEventListener('pointerup', dragEnd);
+      carousel?.addEventListener('pointerleave', dragEnd);
+    });
+  });
+</script>
+
+<ul id="carousel" data-dragging="false">
+  {articles.map(({ title, slug, img }) => (
+    <li>
+      <a href={`blog/articles/${slug}`} title={title}>
+        <span data-visible="sr">{title}</span>
+      </a>
+      <img src={img} alt={`${title}のサムネイル`} />
+    </li>
+  ))}
+</ul>
+
+<style>
+  ul {
+    display: flex;
+
+    padding: var(--pd-i) var(--gap);
+    padding-left: var(--pd-l);
+    gap: var(--gap);
+
+    height: 100%;
+
+    line-height: 0;
+
+    cursor: grab;
+
+    overflow: auto;
+    scrollbar-width: none;
+
+    &[data-dragging="true"] {
+      cursor: grabbing;
+
+      a {
+        pointer-events: none;
+      }
+    }
+
+    @media screen and (width < 700px) {
+      --pd-i: 6rem;
+      --pd-l: 2rem;
+      --gap: 1.5rem;
+    }
+
+    @media screen and (width >= 700px) {
+      --pd-i: 6rem;
+      --pd-l: 10rem;
+      --gap: 2rem;
+    }
+
+    @media screen and (width >= 1100px) {
+      --pd-i: 8rem;
+      --pd-l: 14rem;
+      --gap: 6rem;
+    }
+  }
+
+  li {
+    position: relative;
+  }
+
+  a::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+  }
+
+  img {
+    height: 100%;
+    aspect-ratio: 1;
+
+    object-fit: contain;
+
+    pointer-events: none;
+    user-select: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    a:is(:hover, :focus) + img {
+      scale: 1;
+    }
+
+    img {
+      scale: 0.975;
+
+      transition: scale var(--duration) ease-in-out;
+    }
+  }
+</style>

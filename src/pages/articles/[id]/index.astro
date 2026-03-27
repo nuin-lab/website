@@ -17,8 +17,10 @@
 
 import { getEntries, render } from 'astro:content';
 
-import { getAvailableArticles } from '../../../lib/query/articles';
 import { format } from '../../../utils/date';
+
+// Query
+import { getAvailableArticles } from '../../../lib/query/articles.query';
 
 // Layouts
 import Page from '../../../layouts/Page.astro';
@@ -52,7 +54,7 @@ const date = format(article.data.publishedAt);
   <p>Published on: <time datetime={date}>{date?.replaceAll('-', '.') || 'Unpublished'}</time></p>
 
   <ul>
-    {tags.map(({data})=>(
+    {tags.map(({ data })=>(
       <>
         <li>{data.name}</li>
       </>

@@ -1,4 +1,3 @@
----
 /*
  * Copyright 2026 nuin
  *
@@ -15,14 +14,15 @@
  * limitations under the License.
  */
 
-// Query
-import { getAvailableArticles } from '../../lib/query/articles.query';
+export type CarouselItemData = {
+  title: string;
+  slug: string;
+  img: string;
+};
 
-const articles = await getAvailableArticles();
----
-
-<ul>
-  {articles.map((article) => (
-    <li><a href={`articles/${article.id}`}>{article.data.title}</a></li>
-  ))}
-</ul>
+export type CardData = {
+  title: string;
+  date: string;
+  slug: string;
+  img: string;
+};

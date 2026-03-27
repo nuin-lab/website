@@ -25,4 +25,5 @@ export const ArticleFrontmatterSchema = z.object({
   revisedAt: z.coerce.date().optional(), // 名称はmicroCMSから - https://help.microcms.io/ja/knowledge/how-to-setup-date
   img: z.url().nonempty(),
   tags: z.array(reference('tags')).nonempty(),
+  featured: z.number().min(1).max(5).optional(),
 });

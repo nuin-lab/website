@@ -1,0 +1,140 @@
+---
+/*
+ * Copyright 2026 nuin
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// Elements
+import Anchor from '../elements/Anchor.astro';
+
+// Constants
+import { externalLinks, navItems } from '../constants/links.constants';
+---
+
+<footer data-lang="en">
+  <nav>
+    <ul data-internal>
+      {navItems.map(({ label }) => (
+        <li>
+          <Anchor href={`/${label.toLowerCase()}`}>{label}</Anchor>
+        </li>
+      ))}
+    </ul>
+
+    <ul data-external>
+      {externalLinks.map(({ url, lable }) => (
+        <li>
+          <Anchor href={url} target="_blank" ref="noreferrer">{lable}</Anchor>
+        </li>
+      ))}
+    </ul>
+  </nav>
+
+  <div class="copyright">© nuin</div>
+
+  <div class="logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 140" width="100%" fill="none" aria-hidden="true">
+      <path
+        d="M24 167.74V58.2641H84.5433C106.936 58.2641 118.132 69.4605 118.132 91.8532V167.74H89.5195V89.7798C89.5195 85.3565 87.3079 83.1449 82.8846 83.1449H52.6129V167.74H24ZM146.279 134.151V58.2641H174.892V136.224C174.892 140.647 177.103 142.859 181.527 142.859H211.798V58.2641H240.411V167.74H179.868C157.475 167.74 146.279 156.543 146.279 134.151ZM269.594 40.2255V12.2346H299.451V40.2255H269.594ZM270.216 167.74V58.2641H298.829V167.74H270.216ZM328.733 167.74V58.2641H389.277C411.669 58.2641 422.866 69.4605 422.866 91.8532V167.74H394.253V89.7798C394.253 85.3565 392.041 83.1449 387.618 83.1449H357.346V167.74H328.733ZM441.06 171.057L499.115 12.6493L523.167 21.3575L465.111 179.765L441.06 171.057ZM563.655 167.74C541.262 167.74 530.065 156.751 530.065 134.773C530.065 112.795 541.262 101.806 563.655 101.806H592.268V89.7798C592.268 85.3565 590.056 83.1449 585.633 83.1449H541.676V67.5944L554.117 58.2641H587.291C609.684 58.2641 620.88 69.4605 620.88 91.8532V167.74H563.655ZM558.678 136.224C558.678 140.647 560.89 142.859 565.313 142.859H592.268V123.784H565.313C560.89 123.784 558.678 125.995 558.678 130.418V136.224ZM649.868 167.74V14.308H678.481V58.2641H710.411C732.804 58.2641 744 69.4605 744 91.8532V134.151C744 156.543 732.804 167.74 710.411 167.74H649.868ZM678.481 142.859H708.752C713.175 142.859 715.387 140.647 715.387 136.224V89.7798C715.387 85.3565 713.175 83.1449 708.752 83.1449H678.481V142.859Z"
+      />
+    </svg>
+  </div>
+</footer>
+
+<style>
+  footer {
+    display: grid;
+
+    min-height: var(--vh-remain);
+
+    @media screen and (width < 1100px) {
+      grid-template-rows: auto 1fr auto 1fr;
+    }
+
+    @media screen and (width >= 1100px) {
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+    }
+  }
+
+  nav {
+    @media screen and (width < 1100px) {
+      display: grid;
+      grid-template-rows: subgrid;
+
+      grid-row: 1 / 3;
+    }
+
+    @media screen and (width >= 1100px) {
+      display: grid;
+      grid-template-columns: subgrid;
+
+      grid-column: 2 / 5;
+
+      border-right: 1px solid;
+    }
+
+    ul {
+      padding: 1rem;
+    }
+
+    [data-internal] {
+      font-weight: 700;
+
+      @media screen and (width < 700px) {
+        border-bottom: 1px solid;
+
+        font-size: 2.5rem;
+      }
+
+      @media screen and (width >= 700px) {
+        font-size: 3rem;
+      }
+
+      @media screen and (width >= 1100px) {
+        grid-column: 1 / 3;
+
+        border-right: 1px solid;
+      }
+    }
+  }
+
+  .copyright {
+    padding: 1rem;
+
+    font-size: 0.75rem;
+
+    @media screen and (width >= 1100px) {
+      grid-column: 1 / 2;
+      grid-row: 1 / 2;
+
+      border-right: 1px solid;
+    }
+  }
+
+  .logo {
+    display: grid;
+    align-items: end;
+
+    background-color: var(--black);
+
+    svg {
+      stroke: var(--white);
+    }
+
+    @media screen and (width >= 1100px) {
+      grid-column: 1 / 5;
+    }
+  }
+</style>
