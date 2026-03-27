@@ -14,8 +14,14 @@
  * limitations under the License.
  */
 
-[data-visible="pc"] {
-  @media screen and (width < 500px) {
+@media screen and (480px <= width < 880px) {
+  [data-visible~="pc"]:not([data-visible~="tb"]) {
+    display: none;
+  }
+}
+
+@media screen and (width < 480px) {
+  [data-visible~="tb"] {
     display: none;
   }
 }

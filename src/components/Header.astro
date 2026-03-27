@@ -39,7 +39,7 @@ const LogoElem = path === '/' ? 'h1' : 'div';
   <nav>
     <ul data-lang="en">
       {navItems.map(({ label, visible }) => (
-        <li data-visible={`${visible}`}>
+        <li data-visible={`${visible.join(' ')}`}>
           <Anchor href={`/${label.toLowerCase()}`}>{label}</Anchor>
         </li>
       ))}

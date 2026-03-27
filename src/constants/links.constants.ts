@@ -15,10 +15,10 @@
  */
 
 export const navItems = [
-  { label: 'Blog', visible: 'all' },
-  { label: 'Sample', visible: 'pc' },
-  { label: 'Kitchen', visible: 'pc' },
-  { label: 'About', visible: 'all' },
+  { label: 'Blog', visible: ['all'] },
+  { label: 'Sample', visible: ['pc', 'tb'] },
+  { label: 'Kitchen', visible: ['pc', 'tb'] },
+  { label: 'About', visible: ['all'] },
 ];
 
 export const externalLinks = [{ url: 'https://github.com/nuin-lab', lable: 'GitHub' }];
