@@ -65,9 +65,11 @@ const publishedAt = format(article.data.publishedAt);
         <h1>{article.data.title}</h1>
         <Datetime date={publishedAt} />
 
-        <ul>
+        <ul class="tags" data-lang="en">
           {tags.map(({ data })=>(
-            <li>{data.name}</li>
+            <li>
+              <a href={`/blog/tags/${data.id}`}>{data.name}</a>
+            </li>
           ))}
         </ul>
       </header>
@@ -123,6 +125,22 @@ const publishedAt = format(article.data.publishedAt);
 
   :global(time) {
     font-size: 0.75rem;
+  }
+
+  .tags {
+    display: flex;
+
+    margin-top: 1rem;
+    gap: 0.5rem;
+
+    font-size: 0.8rem;
+
+    a {
+      padding: 0.25rem 0.75rem;
+
+      background-color: var(--black);
+      color: var(--white);
+    }
   }
 
   hr {
