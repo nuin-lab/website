@@ -33,6 +33,7 @@ import Header from '../../../../components/Header.astro';
 import Footer from '../../../../components/Footer.astro';
 
 import Contents from './_components/Contents.astro';
+import Nav from './_components/Nav.astro';
 
 /**
  * 静的パラメータの生成
@@ -45,14 +46,21 @@ export async function getStaticPaths() {
   const articles = await getAvailableArticles();
 
   return Promise.all(
-    articles.map(async (article) => ({
-      params: { id: article.id },
-      props: { article, tags: await getEntries(article.data.tags) },
+    articles.map(async (article, idx) => ({
+      params: {
+        id: article.id,
+      },
+      props: {
+        article: article,
+        tags: await getEntries(article.data.tags),
+        next: articles.at(idx + 1),
+        prev: articles.at(idx - 1),
+      },
     })),
   );
 }
 
-const { article, tags } = Astro.props;
+const { article, tags, ...articles } = Astro.props;
 
 const { Content } = await render(article);
 
@@ -84,6 +92,10 @@ const publishedAt = format(article.data.publishedAt);
         <Content />
       </Contents>
     </article>
+
+    <aside>
+      <Nav {...articles} />
+    </aside>
   </main>
 
   <Footer />
@@ -102,8 +114,11 @@ const publishedAt = format(article.data.publishedAt);
   article {
     padding: 1rem;
 
+    z-index: 1;
+
     @media screen and (width >= 1100px) {
       grid-column: 2 / 3;
+      grid-row: 1 / 2;
 
       position: relative;
 
@@ -151,5 +166,12 @@ const publishedAt = format(article.data.publishedAt);
 
   hr {
     margin-block: 1rem;
+  }
+
+  aside {
+    @media screen and (width >= 1100px) {
+      grid-column: 1 / 4;
+      grid-row: 1 / 2;
+    }
   }
 </style>
