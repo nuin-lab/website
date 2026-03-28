@@ -32,14 +32,14 @@ const { next, prev } = Astro.props;
 <nav>
   <ul>
     <li>
+      <div class="label">次の記事</div>
       <Show when={next !== undefined}>
-        <div class="decoration">次の記事</div>
         <a href={next?.id} data-anim="blink">{next?.data.title}</a>
       </Show>
     </li>
     <li>
+      <div class="label">前の記事</div>
       <Show when={prev !== undefined}>
-        <div class="decoration">前の記事</div>
         <a href={prev?.id} data-anim="blink">{prev?.data.title}</a>
       </Show>
     </li>
@@ -95,7 +95,7 @@ const { next, prev } = Astro.props;
     }
   }
 
-  .decoration {
+  .label {
     color: var(--black-50);
 
     font-size: 0.75rem;
