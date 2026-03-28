@@ -25,6 +25,9 @@ import { getAvailableArticles } from '../../../../lib/query/articles.query';
 // Layouts
 import Page from '../../../../layouts/Page.astro';
 
+// Elements
+import Datetime from '../../../../elements/Date.astro';
+
 // Components
 import Header from '../../../../components/Header.astro';
 import Footer from '../../../../components/Footer.astro';
@@ -50,7 +53,7 @@ export async function getStaticPaths() {
 const { article, tags } = Astro.props;
 
 const { Content } = await render(article);
-const date = format(article.data.publishedAt);
+const publishedAt = format(article.data.publishedAt);
 ---
 
 <Page title={article.data.title} description={article.data.description}>
@@ -60,7 +63,7 @@ const date = format(article.data.publishedAt);
     <article>
       <header>
         <h1>{article.data.title}</h1>
-        <p>Published on: <time datetime={date}>{date?.replaceAll('-', '.') || 'Unpublished'}</time></p>
+        <Datetime date={publishedAt} />
 
         <ul>
           {tags.map(({ data })=>(
@@ -116,6 +119,10 @@ const date = format(article.data.publishedAt);
   h1 {
     font-size: 1.5rem;
     font-weight: 500;
+  }
+
+  :global(time) {
+    font-size: 0.75rem;
   }
 
   hr {
