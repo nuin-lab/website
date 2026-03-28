@@ -46,17 +46,22 @@ export async function getStaticPaths() {
   const articles = await getAvailableArticles();
 
   return Promise.all(
-    articles.map(async (article, idx) => ({
-      params: {
-        id: article.id,
-      },
-      props: {
-        article: article,
-        tags: await getEntries(article.data.tags),
-        next: articles.at(idx + 1),
-        prev: articles.at(idx - 1),
-      },
-    })),
+    articles.map(async (article, idx) => {
+      const newerIdx = idx - 1;
+      const olderIdx = idx + 1;
+
+      return {
+        params: {
+          id: article.id,
+        },
+        props: {
+          article: article,
+          tags: await getEntries(article.data.tags),
+          next: newerIdx >= 0 ? articles.at(newerIdx) : undefined,
+          prev: olderIdx < articles.length ? articles.at(olderIdx) : undefined,
+        },
+      };
+    }),
   );
 }
 
