@@ -58,14 +58,18 @@ const date = format(article.data.publishedAt);
 
   <main id="main">
     <article>
-      <h1>{article.data.title}</h1>
-      <p>Published on: <time datetime={date}>{date?.replaceAll('-', '.') || 'Unpublished'}</time></p>
+      <header>
+        <h1>{article.data.title}</h1>
+        <p>Published on: <time datetime={date}>{date?.replaceAll('-', '.') || 'Unpublished'}</time></p>
 
-      <ul>
-        {tags.map(({ data })=>(
-          <li>{data.name}</li>
-        ))}
-      </ul>
+        <ul>
+          {tags.map(({ data })=>(
+            <li>{data.name}</li>
+          ))}
+        </ul>
+      </header>
+
+      <hr>
 
       <Content />
     </article>
@@ -107,5 +111,9 @@ const date = format(article.data.publishedAt);
         background-color: currentColor;
       }
     }
+  }
+
+  hr {
+    margin-block: 1rem;
   }
 </style>
