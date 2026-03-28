@@ -21,10 +21,10 @@
     "node": ">=24.0.0"
   },
   "dependencies": {
-    "astro": "^6.0.4"
+    "astro": "^6.1.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.7",
-    "wrangler": "^4.73.0"
+    "@biomejs/biome": "2.4.9",
+    "wrangler": "^4.78.0"
   }
 }
