@@ -44,7 +44,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link
       rel="stylesheet"
-      href="https://fonts.bunny.net/css?family=ibm-plex-sans-jp:500,700|oxanium:500,600,700&display=swap"
+      href="https://fonts.bunny.net/css?family=ibm-plex-sans-jp:500,700|ibm-plex-mono:500,700|oxanium:500,600,700&display=swap"
     >
 
     <title>{title}</title>
@@ -82,6 +82,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
     font-family: "IBM Plex Sans JP", sans-serif;
     font-weight: 500;
+  }
+
+  :global(code) {
+    font-family: "IBM Plex Mono", monospace;
   }
 
   :global([data-visible="focus"]) {
