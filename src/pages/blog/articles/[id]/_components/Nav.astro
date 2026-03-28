@@ -1,0 +1,116 @@
+---
+/*
+ * Copyright 2026 nuin
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// Types
+import type { CollectionEntry } from 'astro:content';
+
+// Elements
+import Show from '../../../../../elements/Show.astro';
+
+interface Props {
+  next: CollectionEntry<'articles'> | undefined;
+  prev: CollectionEntry<'articles'> | undefined;
+}
+
+const { next, prev } = Astro.props;
+---
+
+<nav>
+  <ul>
+    <li>
+      <div class="label">次の記事</div>
+      <Show when={next !== undefined}>
+        <a href={next?.id} data-anim="blink">{next?.data.title}</a>
+        <span slot="fallback" class="fallback">この記事が最新です</span>
+      </Show>
+    </li>
+    <li>
+      <div class="label">前の記事</div>
+      <Show when={prev !== undefined}>
+        <a href={prev?.id} data-anim="blink">{prev?.data.title}</a>
+        <span slot="fallback" class="fallback">この記事が最古です</span>
+      </Show>
+    </li>
+  </ul>
+</nav>
+
+<style>
+  nav {
+    @media screen and (width >= 1100px) {
+      height: 100%;
+    }
+  }
+
+  ul {
+    @media screen and (width < 1100px) {
+      border-top: 1px solid;
+    }
+
+    @media screen and (width >= 1100px) {
+      display: grid;
+      grid-template-columns: 1fr minmax(0, 2fr) 1fr;
+
+      position: sticky;
+      top: var(--hdr-ht);
+
+      height: 100%;
+      max-height: var(--vh-remain);
+    }
+  }
+
+  li {
+    position: relative;
+
+    @media screen and (width < 1100px) {
+      padding: 1rem;
+
+      &:last-of-type {
+        border-top: 1px solid var(--black-50);
+
+        text-align: end;
+      }
+    }
+
+    @media screen and (width >= 1100px) {
+      display: grid;
+      place-content: center;
+
+      text-align: center;
+
+      &:last-child {
+        grid-column: 3 / 4;
+      }
+    }
+  }
+
+  .label {
+    color: var(--black-50);
+
+    font-size: 0.75rem;
+  }
+
+  a::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+  }
+
+  .fallback {
+    opacity: 0.75;
+  }
+</style>

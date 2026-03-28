@@ -1,0 +1,182 @@
+---
+/*
+ * Copyright 2026 nuin
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { getEntries, render } from 'astro:content';
+
+import { format } from '../../../../utils/date';
+
+// Query
+import { getAvailableArticles } from '../../../../lib/query/articles.query';
+
+// Layouts
+import Page from '../../../../layouts/Page.astro';
+
+// Elements
+import Datetime from '../../../../elements/Date.astro';
+
+// Components
+import Header from '../../../../components/Header.astro';
+import Footer from '../../../../components/Footer.astro';
+
+import Contents from './_components/Contents.astro';
+import Nav from './_components/Nav.astro';
+
+/**
+ * 静的パラメータの生成
+ *
+ * @see https://docs.astro.build/en/guides/content-collections/#building-for-static-output-default
+ * @see https://docs.astro.build/en/guides/routing/#dynamic-routes
+ * @see https://docs.astro.build/en/reference/routing-reference/#getstaticpaths
+ */
+export async function getStaticPaths() {
+  const articles = await getAvailableArticles();
+
+  return Promise.all(
+    articles.map(async (article, idx) => {
+      const newerIdx = idx - 1;
+      const olderIdx = idx + 1;
+
+      return {
+        params: {
+          id: article.id,
+        },
+        props: {
+          article: article,
+          tags: await getEntries(article.data.tags),
+          next: newerIdx >= 0 ? articles.at(newerIdx) : undefined,
+          prev: olderIdx < articles.length ? articles.at(olderIdx) : undefined,
+        },
+      };
+    }),
+  );
+}
+
+const { article, tags, ...articles } = Astro.props;
+
+const { Content } = await render(article);
+
+const publishedAt = format(article.data.publishedAt);
+---
+
+<Page title={article.data.title} description={article.data.description}>
+  <Header />
+
+  <main id="main">
+    <article>
+      <header>
+        <h1>{article.data.title}</h1>
+        <Datetime date={publishedAt} />
+
+        <ul class="tags" data-lang="en">
+          {tags.map(({ data })=>(
+            <li>
+              <a href={`/blog/tags/${data.id}`}>{data.name}</a>
+            </li>
+          ))}
+        </ul>
+      </header>
+
+      <hr>
+
+      <!-- biome-ignore format: 視認性のための意図的な改行 -->
+      <Contents>
+        <Content />
+      </Contents>
+    </article>
+
+    <aside>
+      <Nav {...articles} />
+    </aside>
+  </main>
+
+  <Footer />
+</Page>
+
+<style>
+  main {
+    border-bottom: 1px solid;
+
+    @media screen and (width >= 1100px) {
+      display: grid;
+      grid-template-columns: 1fr minmax(0, 2fr) 1fr;
+    }
+  }
+
+  article {
+    padding: 1rem;
+
+    z-index: 1;
+
+    @media screen and (width >= 1100px) {
+      grid-column: 2 / 3;
+      grid-row: 1 / 2;
+
+      position: relative;
+
+      border-right: 1px solid;
+
+      &::before {
+        content: "";
+
+        position: absolute;
+        top: 0;
+        left: -1px;
+
+        width: 1px;
+        height: 100%;
+
+        background-color: currentColor;
+      }
+    }
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  :global(time) {
+    font-size: 0.75rem;
+  }
+
+  .tags {
+    display: flex;
+
+    margin-top: 1rem;
+    gap: 0.5rem;
+
+    font-size: 0.8rem;
+
+    a {
+      padding: 0.25rem 0.75rem;
+
+      background-color: var(--black);
+      color: var(--white);
+    }
+  }
+
+  hr {
+    margin-block: 1rem;
+  }
+
+  aside {
+    @media screen and (width >= 1100px) {
+      grid-column: 1 / 4;
+      grid-row: 1 / 2;
+    }
+  }
+</style>

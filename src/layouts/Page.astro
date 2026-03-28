@@ -44,7 +44,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link
       rel="stylesheet"
-      href="https://fonts.bunny.net/css?family=ibm-plex-sans-jp:500,700|oxanium:500,600,700&display=swap"
+      href="https://fonts.bunny.net/css?family=ibm-plex-sans-jp:500,700|oxanium:500,600,700|jetbrains-mono:400&display=swap"
     >
 
     <title>{title}</title>
@@ -60,7 +60,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   </body>
 </html>
 
-<style>
+<style is:global>
   :root {
     --black: hsl(216, 24%, 8%);
     --black-50: color-mix(in srgb-linear, var(--black), transparent);
@@ -84,18 +84,22 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     font-weight: 500;
   }
 
-  :global([data-visible="focus"]) {
+  code {
+    font-family: "JetBrains Mono", monospace;
+  }
+
+  [data-visible="focus"] {
     padding: 0.5em 1em;
 
     background-color: inherit;
   }
 
-  :global([data-lang="en"]) {
+  [data-lang="en"] {
     font-family: "Oxanium", sans-serif;
   }
 
   @media (hover: hover) and (pointer: fine) {
-    :global([data-anim="blink"]:hover) {
+    [data-anim="blink"]:hover {
       animation: anim-blink 0.3s;
     }
 
