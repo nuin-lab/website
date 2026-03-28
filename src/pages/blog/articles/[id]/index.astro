@@ -25,6 +25,9 @@ import { getAvailableArticles } from '../../../../lib/query/articles.query';
 // Layouts
 import Page from '../../../../layouts/Page.astro';
 
+// Components
+import Header from '../../../../components/Header.astro';
+
 /**
  * 静的パラメータの生成
  *
@@ -50,15 +53,19 @@ const date = format(article.data.publishedAt);
 ---
 
 <Page title={article.data.title} description={article.data.description}>
-  <h1>{article.data.title}</h1>
-  <p>Published on: <time datetime={date}>{date?.replaceAll('-', '.') || 'Unpublished'}</time></p>
+  <Header />
 
-  <ul>
-    {tags.map(({ data })=>(
+  <main id="main">
+    <h1>{article.data.title}</h1>
+    <p>Published on: <time datetime={date}>{date?.replaceAll('-', '.') || 'Unpublished'}</time></p>
+
+    <ul>
+      {tags.map(({ data })=>(
       <>
         <li>{data.name}</li>
       </>
     ))}
-  </ul>
-  <Content />
+    </ul>
+    <Content />
+  </main>
 </Page>
