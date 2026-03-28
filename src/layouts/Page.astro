@@ -60,7 +60,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   </body>
 </html>
 
-<style>
+<style is:global>
   :root {
     --black: hsl(216, 24%, 8%);
     --black-50: color-mix(in srgb-linear, var(--black), transparent);
@@ -84,22 +84,22 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     font-weight: 500;
   }
 
-  :global(code) {
+  code {
     font-family: "JetBrains Mono", monospace;
   }
 
-  :global([data-visible="focus"]) {
+  [data-visible="focus"] {
     padding: 0.5em 1em;
 
     background-color: inherit;
   }
 
-  :global([data-lang="en"]) {
+  [data-lang="en"] {
     font-family: "Oxanium", sans-serif;
   }
 
   @media (hover: hover) and (pointer: fine) {
-    :global([data-anim="blink"]:hover) {
+    [data-anim="blink"]:hover {
       animation: anim-blink 0.3s;
     }
 

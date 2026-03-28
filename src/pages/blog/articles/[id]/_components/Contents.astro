@@ -21,23 +21,23 @@
   <slot />
 </div>
 
-<style>
+<style is:global>
   #contents {
-    :global(a) {
+    a {
       text-decoration: underline;
     }
 
-    :global(img) {
+    img {
       max-width: 100%;
     }
 
-    :global(code) {
+    code {
       display: inline-block;
 
       font-size: 0.8em;
     }
 
-    :global(p > code) {
+    p > code {
       padding: 0.2em 0.25rem;
 
       background-color: var(--black);
@@ -46,14 +46,14 @@
       border-radius: 0.25rem;
     }
 
-    :global(pre) {
+    pre {
       border-radius: 0.25rem;
     }
 
-    :global(.astro-code) {
+    .astro-code {
       padding: 0.5rem 0;
 
-      :global(code) {
+      code {
         display: inline-block;
 
         min-width: 100%;
@@ -61,7 +61,7 @@
         counter-reset: line 0;
       }
 
-      :global(.line) {
+      .line {
         display: inline-block;
 
         position: relative;
