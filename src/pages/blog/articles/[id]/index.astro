@@ -146,4 +146,85 @@ const publishedAt = format(article.data.publishedAt);
   hr {
     margin-block: 1rem;
   }
+
+  :global(pre) {
+    border-radius: 0.25rem;
+  }
+
+  :global(code) {
+    display: inline-block;
+
+    font-size: 0.8em;
+  }
+
+  :global(p > code) {
+    padding: 0.2em 0.25rem;
+
+    background-color: var(--black);
+    color: var(--white);
+
+    border-radius: 0.25rem;
+  }
+
+  :global(.astro-code) {
+    padding: 0.5rem 0;
+
+    :global(code) {
+      display: inline-block;
+
+      min-width: 100%;
+
+      counter-reset: line 0;
+    }
+
+    :global(.line) {
+      display: inline-block;
+
+      position: relative;
+
+      padding: 0 1rem 0 0.75rem;
+
+      width: 100%;
+
+      counter-increment: line;
+
+      &::before {
+        --sp: 0.75rem;
+
+        content: counter(line, leading-zero);
+
+        display: inline-block;
+
+        margin-right: var(--sp);
+        padding-right: var(--sp);
+
+        width: 3ic;
+
+        border-right: 1px solid;
+
+        letter-spacing: 0.4px;
+        text-align: end;
+
+        opacity: 0.5;
+      }
+
+      &:hover::after {
+        content: "";
+
+        position: absolute;
+        inset: 0;
+
+        background-color: var(--white);
+        opacity: 0.25;
+
+        pointer-events: none;
+      }
+    }
+  }
+
+  @counter-style leading-zero {
+    system: numeric;
+    symbols: "0" "1" "2" "3" "4" "5" "6" "7" "8" "9";
+    pad: 3 "0";
+  }
 </style>
