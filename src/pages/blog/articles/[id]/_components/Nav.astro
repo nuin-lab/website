@@ -35,12 +35,14 @@ const { next, prev } = Astro.props;
       <div class="label">次の記事</div>
       <Show when={next !== undefined}>
         <a href={next?.id} data-anim="blink">{next?.data.title}</a>
+        <span slot="fallback">この記事が最新です</span>
       </Show>
     </li>
     <li>
       <div class="label">前の記事</div>
       <Show when={prev !== undefined}>
         <a href={prev?.id} data-anim="blink">{prev?.data.title}</a>
+        <span slot="fallback">この記事が最古です</span>
       </Show>
     </li>
   </ul>
